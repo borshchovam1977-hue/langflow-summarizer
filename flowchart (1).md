@@ -15,8 +15,8 @@ graph TD
         Chunking[Разбиение на чанки + Markdown]
         
         subgraph "Параллельная обработка правил"
-            TextRules[[Текстовые правила (RegEx/Python)]]
-            LLMRules[[LLM правила (AI Models)]]
+            TextRules["Текстовые правила (RegEx/Python)"]
+            LLMRules["LLM правила (AI Models)"]
         end
         
         Validator{LLM Валидатор}
@@ -50,4 +50,3 @@ graph TD
     style Validator fill:#ff9,stroke:#f66
     style LLMRules fill:#bbf,stroke:#333
     style TextRules fill:#bfb,stroke:#333
-```
