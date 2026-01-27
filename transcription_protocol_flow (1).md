@@ -7,27 +7,27 @@ graph TD
     
     subgraph "Процесс 1: Транскрибация (ASR)"
         TranscribeWorker[Transcribe Worker]
-        Whisper[ASR Модель\n(Whisper/NVIDIA)]
-        Diarization[Диаризация\n(Разделение голосов)]
-        ResultText[(JSON/Text\nс таймкодами)]
+        Whisper["ASR Модель<br/>(Whisper/NVIDIA)"]
+        Diarization["Диаризация<br/>(Разделение голосов)"]
+        ResultText[("JSON/Text<br/>с таймкодами")]
     end
 
     subgraph "Процесс 2: Протоколирование (LLM)"
         ProtocolWorker[Protocol Worker]
-        ContextWindow[Управление контекстом\n(Chunking)]
-        LLM[LLM Модель\n(DeepSeek/GPT/Local)]
-        ResultProtocol[(Готовый протокол\nЗадачи / Решения)]
+        ContextWindow["Управление контекстом<br/>(Chunking)"]
+        LLM["LLM Модель<br/>(DeepSeek/GPT/Local)"]
+        ResultProtocol[("Готовый протокол<br/>Задачи / Решения")]
     end
 
     %% Flow 1: Transcribe
-    User -- "1. Загрузка AUDIO\n(POST /task/transcribe)" --> APIGW
+    User -- "1. Загрузка AUDIO<br/>(POST /task/transcribe)" --> APIGW
     APIGW --> TranscribeWorker
     TranscribeWorker --> Whisper --> Diarization
     Diarization --> ResultText
     ResultText -.-> User
     
     %% Flow 2: Protocol
-    User -- "2. Отправка ТЕКСТА\n(POST /task/protocol)" --> APIGW
+    User -- "2. Отправка ТЕКСТА<br/>(POST /task/protocol)" --> APIGW
     APIGW --> ProtocolWorker
     ProtocolWorker --> ContextWindow
     ContextWindow -- "Инструкции + Текст" --> LLM
